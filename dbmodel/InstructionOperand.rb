@@ -37,11 +37,25 @@ class InstructionOperand
     BitReplacement.find_for_instruction_operand(self)
   end
 
+  def double_reg?
+
+    dblMods = {
+      "ldd" => [0, -1, -1],
+      "std" => [0, -1, -1],
+    }
+
+    if (dblMods[instruction.mnemonic.downcase])
+      lst = dblMods[instruction.mnemonic.downcase]
+      return number == lst[0] || number == lst[1] || number == lst[2]
+    end
+  end
+
   def assembler_name
     nametype = operand_type.assembler_name
     nametype = "#{nametype}A" if ((nametype =~ /^Z$/) && number == 0)
     nametype = "#{nametype}B" if ((nametype =~ /^Z$/) && number == 1)
     nametype = "#{nametype}C" if ((nametype =~ /^Z$/) && number == 2)
+    nametype = "#{nametype}D" if (double_reg? && operand_type.register? && ((nametype !~ /^Z/) && nametype !~ /^W[0-9]+/))
 
     if (operand_type.simm?)
       #fbmsk = bit_replacement_mask.first_bit_with("1")
