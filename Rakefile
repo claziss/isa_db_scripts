@@ -7,6 +7,10 @@ namespace "gen" do
 	task :dump => [OUTPUT_DIR] do
 		`erb templates/dump.erb > "#{OUTPUT_DIR}/dump.c"`
 	end
+	task :opc => [OUTPUT_DIR] do
+	     `erb templates/opc.c.erb > "#{OUTPUT_DIR}/opc.h"`
+	     `indent -nbad -bap -nbc -bbo -bl -bli2 -bls -ncdb -nce -cp1 -cs -di2 -ndj -nfc1 -nfca -hnl -i2 -ip5 -lp -pcs -psl -nsc -nsob -sob "#{OUTPUT_DIR}/opc.h"`
+	end
 
 end
 
