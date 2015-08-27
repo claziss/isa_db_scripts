@@ -132,5 +132,5 @@ end
  #Instruction.all(:order => [:mnemonic.asc]).each do |inst|
  Instruction.sort.each do |inst| %>
 /* <%= full_mnemonic(inst) %> <%= inst.opcode %> */
-{ "<%= inst.mnemonic.downcase %>", <%= to_hex(inst.fixed_opcode) %>, <%= to_hex(inst.mask) %>, <%= condition(inst) %>, <%= inst.class.upcase %>, { <%= operands(inst) %> }, { <%= flag(inst) %> }},
+{ "<%= inst.mnemonic.downcase %>", <%= to_hex(inst.fixed_opcode) %>, <%= to_hex(inst.mask) %>, <%= condition(inst) %>, <%= inst.class.upcase %>, <%= inst.getsubclass %>, { <%= operands(inst) %> }, { <%= flag(inst) %> }},
 <% end %>
